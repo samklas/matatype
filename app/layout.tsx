@@ -26,8 +26,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen`}
       >
+        <div className="h-20 p-10 ">matatype</div>
+
         {children}
       </body>
     </html>
