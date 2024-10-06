@@ -3,18 +3,40 @@
 import { useState } from "react";
 
 export default function Home() {
-  const text: string = "lorem ipsum";
-  const [input, setInput] = useState<string>("");
+  const [userInput, setUserInput] = useState<string>("");
+  const targetText: string = "lorem ipsum";
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInput(e.target.value);
+  };
+
+  const renderText = () => {
+    return targetText.split("").map((char, index) => {
+      const userChar = userInput[index];
+
+      // Tarkistetaan onko kirjain oikein vai väärin
+      const color = userChar === char ? "green" : userChar ? "red" : "black";
+
+      return (
+        <span key={index} style={{ color: color }}>
+          {char}
+        </span>
+      );
+    });
+  };
 
   return (
-    <div className="bg-slate-500 h-full flex flex-col justify-center items-center">
-      <div id="timer">timer</div>
-      <div>{text}</div>
+    <div>
+      <h1>Typing Game</h1>
+      <p>{renderText()}</p>
       <input
-        className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-        placeholder="Type here..."
-        onChange={(e) => setInput(e.target.value)}
-      ></input>
+        type="text"
+        value={userInput}
+        onChange={handleInputChange}
+        placeholder="Write here..."
+        style={{ width: "100%", padding: "10px", fontSize: "16px" }}
+      />
+      <p>Characters typed: {userInput.length}</p>
     </div>
   );
 }
